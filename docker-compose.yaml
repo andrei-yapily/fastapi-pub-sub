@@ -1,0 +1,23 @@
+version: '3'
+services:
+  redis:
+    image: redis
+  subscriber:
+    build:
+      context: ./subscriber
+      dockerfile: ./Dockerfile
+    image: potes.org/python-redis-subscriber
+    tty: true
+    entrypoint: python app.py
+    depends_on:
+      - redis
+  publisher:
+    build:
+      context: ./publisher
+      dockerfile: ./Dockerfile
+    image: potes.org/python-redis-publisher
+    ports:
+      - 8080:8080
+    entrypoint: uvicorn app:app --host 0.0.0.0 --port 8080
+    depends_on:
+      - redis
