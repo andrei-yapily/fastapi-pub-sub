@@ -8,4 +8,5 @@ COPY poetry.lock pyproject.toml /application/
 RUN poetry config virtualenvs.create false \
   && poetry install --no-interaction --no-ansi
 
+COPY models.py /application/models.py
 COPY app.py /application/app.py

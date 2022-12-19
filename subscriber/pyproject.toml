@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "subscriber"
+name = "redis-subscriber"
 version = "0.1.0"
 description = ""
 authors = ["Andrei Tuta"]

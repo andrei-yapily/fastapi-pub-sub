@@ -1,21 +1,18 @@
-from typing import Optional
-import redis
-from prettyconf import config
-from fastapi import FastAPI
-import logging
 import json
-from pydantic import BaseModel
+import logging
+
+import redis
+from fastapi import FastAPI
+from prettyconf import config
+
+from models import *
 
 DEBUG = config("DEBUG", cast=config.boolean, default=False)
 CHANNEL = config("CHANNEL", default="test")
 REDIS_HOST = config("REDIS_HOST", default="redis")
 
 
-class Message(BaseModel):
-    recipient: str
-    message: str
-
-def publish(message: Message):
+def publish(message: TimedMessage):
     global r
     try:
         rcvd = r.publish(CHANNEL, json.dumps(message.__dict__))
@@ -34,7 +31,7 @@ r = redis.Redis(host=REDIS_HOST)
 
 
 @app.get("/ping")
-async def root():
+async def ping_root():
     return "pong"
 
 
@@ -44,7 +41,8 @@ async def send_message(
     ):
     success = False
     if message is not None:
-        publish(message)
+        stamped_message = TimedMessage.from_orm(message)
+        publish(stamped_message)
         success = True
     else:
         logging.info(f'Invalid mesage')
