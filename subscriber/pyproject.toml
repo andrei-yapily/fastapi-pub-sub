@@ -8,6 +8,7 @@ authors = ["Andrei Tuta"]
 python = "^3.8"
 redis = "^3.5.3"
 prettyconf = "^2.2.1"
+uvicorn = "^0.20.0"
 
 [tool.poetry.dev-dependencies]
 

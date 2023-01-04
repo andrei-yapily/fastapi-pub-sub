@@ -18,6 +18,6 @@ services:
     image: potes.org/python-redis-publisher
     ports:
       - 8080:8080
-    entrypoint: uvicorn app:app --host 0.0.0.0 --port 8080
+    entrypoint: poetry run uvicorn app:app --host 0.0.0.0 --port 8080
     depends_on:
       - redis

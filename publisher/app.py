@@ -1,6 +1,5 @@
 import json
 import logging
-
 import redis
 from fastapi import FastAPI
 from prettyconf import config
