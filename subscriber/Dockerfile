@@ -3,9 +3,8 @@ FROM python:3.8
 RUN pip install 'poetry==1.3.1'
 
 WORKDIR /application
-COPY poetry.lock pyproject.toml /application/
+COPY requirements.txt /application/
 
-RUN poetry config virtualenvs.create false \
-  && poetry install --no-interaction --no-ansi
+RUN pip install -r requirements.txt
 
 COPY app.py /application/app.py

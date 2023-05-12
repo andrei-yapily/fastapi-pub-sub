@@ -1,0 +1,2 @@
+prettyconf==2.2.1 ; python_version >= "3.8" and python_version < "4.0"
+redis==3.5.3 ; python_version >= "3.8" and python_version < "4.0"
